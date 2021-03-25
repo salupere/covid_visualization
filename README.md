@@ -1,2 +1,2 @@
 # covid_visualization
-test
+R script for pulling open data from digilugu and some visualizations.
