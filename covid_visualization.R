@@ -41,13 +41,14 @@ df %>%
   filter(ResultValue=="P") %>% 
   filter(ResultTime > "2021-01-01") %>% 
   filter(agegroup10=="10-19") %>%
-  group_by(ResultTime) %>%
+  group_by(ResultTime, County) %>%
   tally() %>%
   mutate(muutus=ifelse(ResultTime > "2021-03-11", "Enne", "Pärast")) %>% 
   ggplot(aes(x=ResultTime, y=n, group = muutus))+
   geom_line()+
   geom_vline(xintercept=unclass(as.Date("2021-03-11")),  col = "red")+
   geom_smooth(method = "lm")+
+  facet_wrap(vars(County))+
   labs(x="kuupäev", y="positiivsete testide arv", title = "10-19 vanusegrupi positivsete testide arv")+
-  annotate("text", x=as.Date("2021-03-04"), y=2, label="Distantsõppe algus:", color="red")
-
+  # annotate("text", x=as.Date("2021-03-04"), y=2, label="Distantsõppe algus:", color="red")
+  annotate("text", x=as.Date("2021-03-04"), y=2, label="", color="red")
